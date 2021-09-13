@@ -1,8 +1,9 @@
 package com.example.demo.student;
 
+import org.springframework.context.annotation.Bean;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-
 
 @Entity
 @Table
