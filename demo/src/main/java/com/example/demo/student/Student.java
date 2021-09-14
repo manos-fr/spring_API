@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table
@@ -21,8 +22,9 @@ public class Student {
     private Long id;
     private String name;
     private String email;
-    private Integer age;
     private LocalDate dob;
+    @Transient
+    private Integer age;
 
 
     public Student() {
@@ -31,22 +33,18 @@ public class Student {
     public Student(Long id,
                    String name,
                    String email,
-                   Integer age,
                    LocalDate dob) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.age = age;
         this.dob = dob;
     }
 
     public Student(String name,
                    String email,
-                   Integer age,
                    LocalDate dob) {
         this.name = name;
         this.email = email;
-        this.age = age;
         this.dob = dob;
     }
 
@@ -62,12 +60,12 @@ public class Student {
         return email;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
     public LocalDate getDob() {
         return dob;
+    }
+
+    public Integer getAge() {
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     @Override
@@ -79,5 +77,25 @@ public class Student {
                 ", age=" + age +
                 ", dob=" + dob +
                 '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }
